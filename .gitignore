@@ -1,0 +1,8 @@
+.DS_Store
+.ipynb_checkpoints
+checkpoint/*
+dataset/*
+saved_model/*
+*.zip
+training*
+tf_segmentation.ipynb
