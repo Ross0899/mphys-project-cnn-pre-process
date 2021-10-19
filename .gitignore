@@ -6,3 +6,4 @@ saved_model/*
 *.zip
 training*
 tf_segmentation.ipynb
+full-size/
