@@ -7,3 +7,4 @@ saved_model/*
 training*
 tf_segmentation.ipynb
 full-size/
+*.tif
