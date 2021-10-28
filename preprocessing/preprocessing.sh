@@ -50,10 +50,14 @@ if [ -d "./data/augmented/masks" ]; then
     rm -rf ./data/augmented/masks/* ; fi
 
 # Run Python scripts
+echo "Generating..."
 python3 v2_generating_particles.py $1
 echo ""
+echo "Overlaying..."
 python3 overlay_mask_image.py
+echo "Dividing..."
 python3 divide_images_to_patches.py
+echo "Augmenting..."
 python3 augment_images.py
 
 # Output to user
