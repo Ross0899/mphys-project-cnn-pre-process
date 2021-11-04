@@ -8,11 +8,9 @@
 # Ross Carmichael  // adapted from TensorFlow example
 # 12/10/21
 
-
 import tensorflow as tf
 from tensorflow.keras.layers.experimental import preprocessing 
 
-import tensorflow_datasets as tfds
 from tensorflow_examples.models.pix2pix import pix2pix
 
 from sklearn.preprocessing import LabelEncoder
@@ -196,7 +194,7 @@ def create_mask(pred_mask):
 
 print(model.summary())
 
-EPOCHS = 1
+EPOCHS = 50
 VAL_SUBSPLITS = 2
 VALIDATION_STEPS = SIZE_TEST//BATCH_SIZE//VAL_SUBSPLITS
 
