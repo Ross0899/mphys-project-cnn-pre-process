@@ -214,7 +214,7 @@ model_history = model.fit(train_batches, epochs=EPOCHS,
                           validation_data=validation_batches, # should be validation data
                           callbacks=[cp_callback])
 
-model.save("saved_model/model_test")
+model.save("saved_model/model_2.1_50_epochs.h5")
 
 
 loss = model_history.history['loss']
