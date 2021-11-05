@@ -214,7 +214,11 @@ model_history = model.fit(train_batches, epochs=EPOCHS,
                           validation_data=validation_batches, # should be validation data
                           callbacks=[cp_callback])
 
+<<<<<<< Updated upstream
 model.save("saved_model/model_2.1_50_epochs.h5")
+=======
+model.save("saved_model/model_v2.0_50_epochs")
+>>>>>>> Stashed changes
 
 
 loss = model_history.history['loss']

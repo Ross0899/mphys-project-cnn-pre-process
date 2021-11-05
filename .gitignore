@@ -6,6 +6,7 @@ full-size/
 training_v1/
 saved_model/
 checkpoint/
+training_archive/
 
 tf_segmentation.ipynb
 
