@@ -194,7 +194,7 @@ def create_mask(pred_mask):
 
 print(model.summary())
 
-EPOCHS = 50
+EPOCHS = 100
 VAL_SUBSPLITS = 2
 VALIDATION_STEPS = SIZE_TEST//BATCH_SIZE//VAL_SUBSPLITS
 
@@ -214,12 +214,7 @@ model_history = model.fit(train_batches, epochs=EPOCHS,
                           validation_data=validation_batches, # should be validation data
                           callbacks=[cp_callback])
 
-<<<<<<< Updated upstream
-model.save("saved_model/model_2.1_50_epochs.h5")
-=======
-model.save("saved_model/model_v2.0_50_epochs")
->>>>>>> Stashed changes
-
+model.save("saved_model/model_2.2_100_epochs.h5")
 
 loss = model_history.history['loss']
 val_loss = model_history.history['val_loss']
