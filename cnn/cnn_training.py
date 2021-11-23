@@ -22,7 +22,7 @@ import os
 import numpy as np
 import cv2
 
-BATCH_SIZE = 64
+BATCH_SIZE = 89
 BUFFER_SIZE = 1000
 
 def load_data(path):
@@ -89,7 +89,7 @@ def get_dataset_partitions_tf(ds, ds_size, train_split=0.8, val_split=0.1, test_
     
     return train_ds, val_ds, test_ds
 
-path = "../preprocessing/training_v2/"
+path = "../preprocessing/training_v1/"
 
 # File paths
 images, masks = load_data(path)
@@ -194,7 +194,7 @@ def create_mask(pred_mask):
 
 print(model.summary())
 
-EPOCHS = 100
+EPOCHS = 50
 VAL_SUBSPLITS = 2
 VALIDATION_STEPS = SIZE_TEST//BATCH_SIZE//VAL_SUBSPLITS
 
@@ -226,7 +226,7 @@ plt.title('Training and Validation Loss')
 plt.xlabel('Epoch')
 plt.ylabel('Loss Value')
 plt.ylim([0, 1])
-plt.savefig("training_and_validation_loss_2.0_50_epochs.png")
+plt.savefig("training_and_validation_loss_1.3_50_epochs.png")
 plt.legend()
 plt.close()
 
@@ -241,6 +241,6 @@ plt.xlabel('Epoch')
 plt.ylabel('Accuracy Value')
 plt.ylim([0, 1])
 plt.legend()
-plt.savefig("training_and_validation_accuracy_2.0_50_epochs.png")
+plt.savefig("training_and_validation_accuracy_1.3_50_epochs.png")
 
 print(model_history.history["accuracy"][-1])
