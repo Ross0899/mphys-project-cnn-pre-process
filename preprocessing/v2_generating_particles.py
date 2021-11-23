@@ -161,14 +161,15 @@ def main(number):
         image_array = draw_background(image_array, mu1, mu1, sigma1)
         
         # Add first particle to array & mask
-        image_array, mask_array, particle_list = create_first_particle(image_array, mask_array, rmin, rmax, mu2,  mu2, sigma2, particle_list)
+        try:
+            image_array, mask_array, particle_list = create_first_particle(image_array, mask_array, rmin, rmax, mu2,  mu2, sigma2, particle_list)
+        except: continue
         
         # Add all other particles to array & mask
         try:
             image_array, mask_array, particle_list = add_more_particles(image_array, mask_array, rmin, rmax, 
                                                                         mu2, particle_number, overlap, mu2, sigma2, particle_list)
-        except:
-            continue
+        except: continue
 
         # Draw perimeters around particles in mask
         mask_array = draw_particle_edge(mask_array, particle_list)
