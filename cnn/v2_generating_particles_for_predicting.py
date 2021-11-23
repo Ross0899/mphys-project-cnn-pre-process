@@ -14,6 +14,7 @@ images more representative of real TEM images.
 
 import os
 import sys
+import csv
 from math import sqrt, pi
 import random as rd
 import imageio 
@@ -120,6 +121,11 @@ def add_more_particles(array, mask, rad_min, rad_max, pix_val_av, particle_numbe
         particle_list.append([xtemp, ytemp, rtemp])
         array_new, mask_new = draw_particle(array, mask, xsize, ysize, xtemp, ytemp, rtemp, pix_val_av, mu, sigma)
 
+        # write particle radii to file 
+        with open("sizes.csv", "a") as f:
+            writer = csv.writer(f)
+            writer.writerow((rtemp,))
+
     return array_new, mask_new, particle_list
 
 def main(number):
@@ -149,11 +155,15 @@ def main(number):
         image_array = draw_background(image_array, mu1, mu1, sigma1)
         
         # Add first particle to array & mask
-        image_array, mask_array, particle_list = create_first_particle(image_array, mask_array, rmin, rmax, mu2,  mu2, sigma2, particle_list)
+        try:
+            image_array, mask_array, particle_list = create_first_particle(image_array, mask_array, rmin, rmax, mu2,  mu2, sigma2, particle_list)
+        except: continue
         
         # Add all other particles to array & mask
-        image_array, mask_array, particle_list = add_more_particles(image_array, mask_array, rmin, rmax, 
-                                                                    mu2, particle_number, overlap, mu2, sigma2, particle_list)
+        try:
+            image_array, mask_array, particle_list = add_more_particles(image_array, mask_array, rmin, rmax, 
+                                                                        mu2, particle_number, overlap, mu2, sigma2, particle_list)
+        except: continue
 
         # Draw perimeters around particles in mask
         mask_array = draw_particle_edge(mask_array, particle_list)
