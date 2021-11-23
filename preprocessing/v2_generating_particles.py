@@ -14,6 +14,7 @@ images more representative of real TEM images.
 
 import os
 import sys
+import csv
 from math import sqrt, pi
 import random as rd
 import imageio 
@@ -119,6 +120,11 @@ def add_more_particles(array, mask, rad_min, rad_max, pix_val_av, particle_numbe
 
         particle_list.append([xtemp, ytemp, rtemp])
         array_new, mask_new = draw_particle(array, mask, xsize, ysize, xtemp, ytemp, rtemp, pix_val_av, mu, sigma)
+
+        # write particle radii to file 
+        with open("sizes.csv", "a") as f:
+            writer = csv.writer(f)
+            writer.writerow((rtemp,))
 
     return array_new, mask_new, particle_list
 
