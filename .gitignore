@@ -4,6 +4,7 @@
 data/
 full-size/
 training_v1/
+saved_model/
 checkpoint/
 training_archive/
 training_images/
