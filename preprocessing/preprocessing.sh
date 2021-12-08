@@ -54,7 +54,7 @@ echo "Generating..."
 python3 v3_generating_particles.py $1
 echo ""
 echo "Overlaying..."
-python3 overlay_mask_image.py
+#python3 overlay_mask_image.py
 echo "Dividing..."
 python3 divide_images_to_patches.py
 echo "Augmenting..."
