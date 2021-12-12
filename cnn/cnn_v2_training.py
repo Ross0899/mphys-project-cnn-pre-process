@@ -214,7 +214,7 @@ model_history = model.fit(train_batches, epochs=EPOCHS,
                           validation_data=validation_batches, # should be validation data
                           callbacks=[cp_callback])
 
-model.save("saved_model/model_2.2_100_epochs.h5")
+model.save("saved_model/model_3.0_100_epochs.h5")
 
 loss = model_history.history['loss']
 val_loss = model_history.history['val_loss']
@@ -226,7 +226,7 @@ plt.title('Training and Validation Loss')
 plt.xlabel('Epoch')
 plt.ylabel('Loss Value')
 plt.ylim([0, 1])
-plt.savefig("training_and_validation_loss.png")
+plt.savefig("training_and_validation_loss_model3_100_epochs.png")
 plt.legend()
 plt.close()
 
@@ -241,6 +241,6 @@ plt.xlabel('Epoch')
 plt.ylabel('Accuracy Value')
 plt.ylim([0, 1])
 plt.legend()
-plt.savefig("training_and_validation_accuracy.png")
+plt.savefig("training_and_validation_accuracy_model3_100epochs.png")
 
 print(model_history.history["accuracy"][-1])
