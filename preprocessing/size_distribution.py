@@ -3,11 +3,11 @@ import numpy as np
 from datetime import datetime
 
 
-def plot():
+def plot(fname):
     dateTimeObj = datetime.now()
     timestampStr = dateTimeObj.strftime("%d-%b-%Y_%H.%M.%S")
 
-    with open("sizes.csv", "r") as f:
+    with open(fname, "r") as f:
         lines = f.readlines()
         radii = [line.strip() for line in lines]
 

@@ -12,6 +12,7 @@ training_masks/
 training_v2/
 tf_segmentation.ipynb
 
+s1740486@student*
 *.zip
 *.tif
 *.svg
