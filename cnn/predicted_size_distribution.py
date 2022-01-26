@@ -34,13 +34,13 @@ def read_image(path):
 # # model_2.2
 # path = "../training_archive/training_v3/particles/"
 # # model_3.0
-path = "../training_archive/training_v3/particles/"
+path = "../preprocessing/data/augmented/particles/"
 
 # File paths
 images = load_data(path)
 print(f"Images: {len(images)}")
 
-synthetic_images = [read_image(image) for image in images[:25]]
+synthetic_images = [read_image(image) for image in images]
 
 model = tf.keras.models.load_model('saved_model/model_3.0_100_epochs.h5')
 

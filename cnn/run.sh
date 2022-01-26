@@ -1,9 +1,7 @@
 #!/bin/sh
 
 #$ -cwd
-#$ -N CNN-training-v2
+#$ -N model_v3_predicting_training_data_areas
 #$ -m be
-pip install tensorflow
-pip install -q git+https://github.com/tensorflow/examples.git
 
-python3 cnn_v2_training.py
+python3 predicted_size_distribution.py
