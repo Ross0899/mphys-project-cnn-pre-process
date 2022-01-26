@@ -24,6 +24,9 @@ import io
 import numpy as np
 from matplotlib.patches import Circle
 import matplotlib.pyplot as plt
+from datetime import datetime
+
+from size_distribution import plot
 
 def create_image_array(xsize, ysize):
     """
@@ -94,7 +97,7 @@ def create_first_particle(array, mask, rad_min, rad_max, pix_val_av, mu, sigma, 
 
     return array_new, mask_new, particle_list
 
-def add_more_particles(array, mask, rad_min, rad_max, pix_val_av, particle_number, radius_overlap, mu, sigma, particle_list):
+def add_more_particles(array, mask, rad_min, rad_max, pix_val_av, particle_number, radius_overlap, mu, sigma, particle_list, fname):
     """
     Add particles to the array based on overlap conditions (radius_overlap).
     """
@@ -122,13 +125,17 @@ def add_more_particles(array, mask, rad_min, rad_max, pix_val_av, particle_numbe
         array_new, mask_new = draw_particle(array, mask, xsize, ysize, xtemp, ytemp, rtemp, pix_val_av, mu, sigma)
 
         # write particle radii to file 
-        with open("sizes.csv", "a") as f:
+        with open(fname, "a") as f:
             writer = csv.writer(f)
             writer.writerow((rtemp,))
 
     return array_new, mask_new, particle_list
 
 def main(number):
+    # Filename
+    dateTimeObj = datetime.now()
+    timestampStr = dateTimeObj.strftime("%d-%b-%Y_%H.%M.%S")
+    fname = "sizes_" + timestampStr + ".csv"
 
     particle_number_options = [100, 10, 1]
     overlap = 0.5
@@ -174,7 +181,7 @@ def main(number):
         # Add all other particles to array & mask
         try:
             image_array, mask_array, particle_list = add_more_particles(image_array, mask_array, rmin, rmax, 
-                                                                        mu2, particle_number, overlap, mu2, sigma2, particle_list)
+                                                                        mu2, particle_number, overlap, mu2, sigma2, particle_list, fname)
         except: continue
 
         # Draw perimeters around particles in mask
@@ -193,6 +200,8 @@ def main(number):
             imageio.imwrite(filename, mask_array)
         except:
             raise Exception(f"Could not write mask_particles{i}.png to './Out/masks/'")
+
+    plot(fname)
 
 if __name__== "__main__" :
     try:

@@ -8,6 +8,7 @@ import numpy as np
 import cv2
 from MightyMosaic import MightyMosaic
 from scipy import ndimage as ndi
+from datetime import datetime
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -27,6 +28,11 @@ def read_image(path):
 
     return image
 
+# get unique file name 
+dateTimeObj = datetime.now()
+timestampStr = dateTimeObj.strftime("%d-%b-%Y_%H.%M.%S")
+fname = "sizes_" + timestampStr + ".csv"
+
 # model_1.3
 #path = "../training_archive/training_v1/particles/"
 # # model_2.0
@@ -42,7 +48,7 @@ print(f"Images: {len(images)}")
 
 synthetic_images = [read_image(image) for image in images]
 
-model = tf.keras.models.load_model('saved_model/model_3.0_100_epochs.h5')
+model = tf.keras.models.load_model('saved_model/model_2.0_50_epochs.h5')
 
 # add loop over all images
 
@@ -127,7 +133,7 @@ for synthetic_image in synthetic_images:
     # plot image histogram
     areas_array = np.array(areas)
 
-    with open("properties.txt", "a") as f:
+    with open(fname, "a") as f:
         np.savetxt(f, areas_array)
     
     particles = []
@@ -139,4 +145,4 @@ sys.path.append("../preprocessing")
 from size_distribution import plot
 sys.path.append("../cnn")
 
-plot("properties.txt")
+plot(fname, areas_file=True)
