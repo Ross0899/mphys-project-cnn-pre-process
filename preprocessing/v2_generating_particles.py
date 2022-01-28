@@ -142,7 +142,7 @@ def main(number):
 
     mu1 = 30
     sigma1 = 10
-
+ 
     mu2 = 230
     sigma2 = 5
 

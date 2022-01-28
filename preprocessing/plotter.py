@@ -1,3 +1,3 @@
 from size_distribution import plot
 
-plot("../cnn/properties.txt", areas_file=True)
+plot("../cnn/sizes_26-Jan-2022_11.32.10.csv", areas_file=True)
