@@ -34,7 +34,8 @@ timestampStr = dateTimeObj.strftime("%d-%b-%Y_%H.%M.%S")
 fname = "sizes_" + timestampStr + ".csv"
 
 # model_1.3
-path = "../training_archive/training_v1/particles/"
+path = "../preprocessing/Out"
+
 # # model_2.0
 # path = "../training_archive/training_v2/particles/"
 # # model_2.2
@@ -43,12 +44,16 @@ path = "../training_archive/training_v1/particles/"
 #path = "../preprocessing/data/augmented/particles/"
 
 # File paths
-images = load_data(path)
+images = load_data(path, tif=True)
+
+if len(images) == 0:
+    print(f"No images found in: {path}")
+    sys.exit(1)
 print(f"Images: {len(images)}")
 
 synthetic_images = [read_image(image) for image in images]
 
-model = tf.keras.models.load_model('saved_model/model_1.3_50_epochs.h5')
+model = tf.keras.models.load_model('saved_model/model_1_TEST.h5')
 
 # add loop over all images
 

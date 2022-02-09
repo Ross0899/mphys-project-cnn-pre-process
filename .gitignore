@@ -10,6 +10,9 @@ training_archive/
 training_images/
 training_masks/
 training_v2/
+training_test/
+images_to_be_classified/
+prediction_v3/
 tf_segmentation.ipynb
 
 s1740486@student*

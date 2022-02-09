@@ -89,7 +89,7 @@ def get_dataset_partitions_tf(ds, ds_size, train_split=0.8, val_split=0.1, test_
     
     return train_ds, val_ds, test_ds
 
-path = "../preprocessing/training_v1/"
+path = "../training_test/"
 
 # File paths
 images, masks = load_data(path)
@@ -214,33 +214,33 @@ model_history = model.fit(train_batches, epochs=EPOCHS,
                           validation_data=validation_batches, # should be validation data
                           callbacks=[cp_callback])
 
-model.save("saved_model/model_2.0_50_epochs.h5")
+model.save("saved_model/model_1_TEST.h5")
 
-loss = model_history.history['loss']
-val_loss = model_history.history['val_loss']
+# loss = model_history.history['loss']
+# val_loss = model_history.history['val_loss']
 
-plt.figure()
-plt.plot(model_history.epoch, loss, 'r', label='Training loss')
-plt.plot(model_history.epoch, val_loss, 'bo', label='Validation loss')
-plt.title('Training and Validation Loss')
-plt.xlabel('Epoch')
-plt.ylabel('Loss Value')
-plt.ylim([0, 1])
-plt.savefig("training_and_validation_loss_1.3_50_epochs.png")
-plt.legend()
-plt.close()
+# plt.figure()
+# plt.plot(model_history.epoch, loss, 'r', label='Training loss')
+# plt.plot(model_history.epoch, val_loss, 'bo', label='Validation loss')
+# plt.title('Training and Validation Loss')
+# plt.xlabel('Epoch')
+# plt.ylabel('Loss Value')
+# plt.ylim([0, 1])
+# plt.savefig("training_and_validation_loss_1.3_50_epochs.png")
+# plt.legend()
+# plt.close()
 
-acc = model_history.history['accuracy']
-val_acc = model_history.history['val_accuracy']
+# acc = model_history.history['accuracy']
+# val_acc = model_history.history['val_accuracy']
 
-plt.figure()
-plt.plot(model_history.epoch, acc, 'r', label='Training accuracy')
-plt.plot(model_history.epoch, val_acc, 'bo', label='Validation accuracy')
-plt.title('Training and Validation Accuracy')
-plt.xlabel('Epoch')
-plt.ylabel('Accuracy Value')
-plt.ylim([0, 1])
-plt.legend()
-plt.savefig("training_and_validation_accuracy_1.3_50_epochs.png")
+# plt.figure()
+# plt.plot(model_history.epoch, acc, 'r', label='Training accuracy')
+# plt.plot(model_history.epoch, val_acc, 'bo', label='Validation accuracy')
+# plt.title('Training and Validation Accuracy')
+# plt.xlabel('Epoch')
+# plt.ylabel('Accuracy Value')
+# plt.ylim([0, 1])
+# plt.legend()
+# plt.savefig("training_and_validation_accuracy_1.3_50_epochs.png")
 
 print(model_history.history["accuracy"][-1])
