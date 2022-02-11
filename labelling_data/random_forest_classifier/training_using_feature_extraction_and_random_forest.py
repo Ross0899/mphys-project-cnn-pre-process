@@ -31,13 +31,14 @@ from PIL import Image
 import pickle
 from matplotlib import pyplot as plt
 import os
-#from yellowbrick.classifier import ROCAUC
+# from yellowbrick.classifier import ROCAUC
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn import metrics
 from skimage.filters import roberts, sobel, scharr, prewitt
 from scipy import ndimage as nd
+from tqdm import tqdm
 
 
 ####################################################################
@@ -46,7 +47,7 @@ from scipy import ndimage as nd
 image_dataset = pd.DataFrame()  #Dataframe to capture image features
 images = np.array([])
 
-img_path = "../tem_training_data/images/"
+img_path = "./data/divided/particles/"
 for image in os.listdir(img_path):  #iterate through each file 
     if not image.endswith(".tif"):
         continue
@@ -56,8 +57,8 @@ for image in os.listdir(img_path):  #iterate through each file
 sorted_images = np.sort(images)
 
 print("Reading in images of particles...")
-for image in sorted_images:
-    print(image)
+for image in tqdm(sorted_images):
+    #print(image)
     
     df = pd.DataFrame()  #Temporary data frame to capture information for each loop.
     #Reset dataframe to blank after each loop.
@@ -156,7 +157,7 @@ for image in sorted_images:
 mask_dataset = pd.DataFrame()  #Create dataframe to capture mask info.
 masks = np.array([])
 
-mask_path = "../tem_training_data/masks/"    
+mask_path = "./data/divided/masks/"    
 for mask in os.listdir(mask_path):  #iterate through each file to perform some action
     if not mask.endswith(".tiff"):
         continue
@@ -166,8 +167,8 @@ for mask in os.listdir(mask_path):  #iterate through each file to perform some a
 sorted_masks = np.sort(masks)
 
 print("\nReading in mask images...")
-for mask in sorted_masks:
-    print(mask)
+for mask in tqdm(sorted_masks):
+    #print(mask)
     
     df2 = pd.DataFrame()
     input_mask = np.array(Image.open(os.path.join(mask_path, mask)))
