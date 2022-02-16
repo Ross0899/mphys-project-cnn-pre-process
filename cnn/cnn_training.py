@@ -22,7 +22,7 @@ import os
 import numpy as np
 import cv2
 
-BATCH_SIZE = 89
+BATCH_SIZE = 64
 BUFFER_SIZE = 1000
 
 def load_data(path):
@@ -89,7 +89,7 @@ def get_dataset_partitions_tf(ds, ds_size, train_split=0.8, val_split=0.1, test_
     
     return train_ds, val_ds, test_ds
 
-path = "../training_test/"
+path = "../preprocessing/data/augmented/"
 
 # File paths
 images, masks = load_data(path)
@@ -194,7 +194,7 @@ def create_mask(pred_mask):
 
 print(model.summary())
 
-EPOCHS = 50
+EPOCHS = 1
 VAL_SUBSPLITS = 2
 VALIDATION_STEPS = SIZE_TEST//BATCH_SIZE//VAL_SUBSPLITS
 
@@ -214,7 +214,7 @@ model_history = model.fit(train_batches, epochs=EPOCHS,
                           validation_data=validation_batches, # should be validation data
                           callbacks=[cp_callback])
 
-model.save("saved_model/model_1_TEST.h5")
+model.save("saved_model/model_4_1_epoch.h5")
 
 # loss = model_history.history['loss']
 # val_loss = model_history.history['val_loss']
