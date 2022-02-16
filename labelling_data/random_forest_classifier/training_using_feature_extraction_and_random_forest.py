@@ -22,8 +22,6 @@ STEP 7: MAKE PREDICTION ON NEW IMAGES
 # Change to suit
 save_model = True
 
-
-
 import numpy as np
 import cv2
 import pandas as pd
@@ -31,7 +29,7 @@ from PIL import Image
 import pickle
 from matplotlib import pyplot as plt
 import os
-# from yellowbrick.classifier import ROCAUC
+from yellowbrick.classifier import ROCAUC
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
@@ -62,9 +60,9 @@ for image in tqdm(sorted_images):
     
     df = pd.DataFrame()  #Temporary data frame to capture information for each loop.
     #Reset dataframe to blank after each loop.
-    
+
     input_img = cv2.imread(img_path + image)  #Read images
-    
+
     #Check if the input image is RGB or grey and convert to grey if RGB
     if input_img.ndim == 3 and input_img.shape[-1] == 3:
         img = cv2.cvtColor(input_img,cv2.COLOR_BGR2GRAY)
@@ -222,8 +220,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.2, random_
 
 ## Instantiate model with n number of decision trees
 print("\nStarting training...")
-model = RandomForestClassifier(n_estimators = 50, random_state = 42, verbose=2)
-
+model = RandomForestClassifier(n_estimators = 50, random_state = 42, verbose=2) #TODO: n_estimators=50
 ## Train the model on training data
 model.fit(X_train, y_train)
 
@@ -239,14 +236,14 @@ print("Classes in the image are: ", np.unique(Y))
 
 # Save model in pickle format
 if save_model:
-    model_name = "tem_training_v1.model"
+    model_name = "_tem_training_50est.model"
     pickle.dump(model, open(model_name, 'wb'))
 
 #ROC curve for RF
-# roc_auc=ROCAUC(model, classes=[0, 1, 2])  #Create object
-# roc_auc.fit(X_train, y_train)
-# roc_auc.score(X_test, y_test)
-# roc_auc.show()
+roc_auc=ROCAUC(model, classes=[0, 1, 2])  #Create object
+roc_auc.fit(X_train, y_train)
+roc_auc.score(X_test, y_test)
+roc_auc.show()
 
 ##To test the model on future datasets:
 #loaded_model = pickle.load(open(model_name, 'rb'))

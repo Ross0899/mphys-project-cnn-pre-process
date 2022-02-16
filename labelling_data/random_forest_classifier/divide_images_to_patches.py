@@ -10,31 +10,25 @@ import cv2
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+from tqdm import tqdm
 
 # Change as necessay (ensure divisible into 512x512)
 patch_size = 512
 step = 512
 
 images = np.array([])
-masks = np.array([])
 
-image_path = "../tem_training_data/images/"
-mask_path = "../tem_training_data/masks/"
+image_path = "../tem_images_to_be_classified/cropped_tem/"
 
-if not os.path.exists('./data/divided/particles'):
+if not os.path.exists('../tem_images_to_be_classified/divided_tem/'):
     try:
-        os.makedirs('./data/divided/particles')
+        os.makedirs('../tem_images_to_be_classified/divided_tem/')
     except:
-        raise Exception("Could not make './data/divided/particles' directory")
+        raise Exception("Could not make '../tem_images_to_be_classified/divided_tem/' directory")
 
-if not os.path.exists('./data/divided/masks'):
-    try:
-        os.makedirs('./data/divided/masks')
-    except:
-        raise Exception("Could not make './data/divided/masks' directory")
 
-image_save_path = "./data/divided/particles/"
-mask_save_path = "./data/divided/masks/"
+
+image_save_path = "../tem_images_to_be_classified/divided_tem/"
 
 # Read in image locations
 for img in os.listdir(image_path):
@@ -43,7 +37,7 @@ for img in os.listdir(image_path):
     images = np.sort(np.append(images, img))
 
 # Open images
-for img in images:
+for img in tqdm(images):
     image = cv2.imread(image_path+img, 0)
     image_patches = patchify(image, (patch_size, patch_size), step=step)
 
@@ -54,23 +48,4 @@ for img in images:
             patch = image_patches[i,j]
             cv2.imwrite(image_save_path + str(i) + str(j) + "_" + str(img), patch)
             
-# Read in mask locations
-for msk in os.listdir(mask_path):
-    if not msk.endswith(".tiff"):
-        continue 
-    masks = np.sort(np.append(masks, msk))
-
-assert len(images) == len(masks), "Image and mask lists are different sizes."
-
-# Open masks 
-for msk in masks:
-    mask = cv2.imread(mask_path+msk, 0)
-    mask_patches = patchify(mask, (patch_size, patch_size), step=step)
-
-    x, y = mask_patches.shape[0], mask_patches.shape[1]
-
-    for i in range(x):
-        for j in range(y):
-            patch = mask_patches[i,j]
-            cv2.imwrite(mask_save_path + str(i) + str(j) + "_" + "mask_" + str(msk), patch)
     

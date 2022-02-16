@@ -1,6 +1,7 @@
 .DS_Store
 .ipynb_checkpoints
 
+*.model/
 data/
 full-size/
 training_v1/
@@ -11,6 +12,10 @@ training_images/
 training_masks/
 training_v2/
 training_test/
+tem_training_data/
+labelling_data/synth_images_to_be_classified/
+labelling_data/tem_images_to_be_classified/
+labelling_data/tem_training_cropped/
 images_to_be_classified/
 prediction_v3/
 tf_segmentation.ipynb

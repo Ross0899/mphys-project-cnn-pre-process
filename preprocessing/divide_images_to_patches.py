@@ -10,6 +10,7 @@ import cv2
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+from tqdm import tqdm
 
 # Change as necessay (ensure divisible into 512x512)
 patch_size = 128
@@ -18,8 +19,8 @@ step = 128
 images = np.array([])
 masks = np.array([])
 
-image_path = "./data/synthetic/particles/"
-mask_path = "./data/synthetic/masks/"
+image_path = "./data/tem/particles/"
+mask_path = "./data/tem/masks/"
 
 if not os.path.exists('./data/divided/particles'):
     try:
@@ -43,7 +44,7 @@ for img in os.listdir(image_path):
     images = np.sort(np.append(images, img))
 
 # Open images
-for img in images:
+for img in tqdm(images):
     image = cv2.imread(image_path+img, 0)
     image_patches = patchify(image, (patch_size, patch_size), step=step)
 
@@ -56,14 +57,14 @@ for img in images:
             
 # Read in mask locations
 for msk in os.listdir(mask_path):
-    if not msk.endswith(".tif"):
+    if not msk.endswith(".png"):
         continue 
     masks = np.sort(np.append(masks, msk))
 
 assert len(images) == len(masks), "Image and mask lists are different sizes."
 
 # Open masks 
-for msk in masks:
+for msk in tqdm(masks):
     mask = cv2.imread(mask_path+msk, 0)
     mask_patches = patchify(mask, (patch_size, patch_size), step=step)
 

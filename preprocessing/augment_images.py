@@ -11,6 +11,7 @@ import random
 import os
 from scipy.ndimage import rotate
 import cv2
+from tqdm import tqdm
 
 images_to_generate = 20
 seed = 42
@@ -99,7 +100,7 @@ for image in images:
 
 # Read in mask locations 
 for msk in os.listdir(mask_path):     
-    if not msk.endswith(".tif"):
+    if not msk.endswith(".png"):
         continue 
     masks = np.sort(np.append(masks, msk))
 
@@ -111,7 +112,7 @@ for mask in masks:
 
 # Perform transformations on all images and masks
 count=0
-for image, mask in zip(image_list, mask_list):
+for image, mask in tqdm(zip(image_list, mask_list)):
     for transform in transformations_partial.values():
         image_transform = transform(image, seed)
         mask_transform = transform(mask, seed)
